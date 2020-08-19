@@ -1,0 +1,56 @@
+from bs4 import BeautifulSoup
+import requests
+from tabulate import tabulate
+from wordcloud import WordCloud,STOPWORDS
+import matplotlib.pyplot as plt
+from io import open
+
+try:
+ User_Id=input("Ingrese el id del usuario que desea encontrar: ")
+ Id=str(User_Id)
+ Existe=bool
+ LinkUs="https://es.stackoverflow.com/users/"+Id
+
+ Pag= requests.get(LinkUs)
+ soup= BeautifulSoup(Pag.content,"html.parser")
+ content_Users= soup.find('div',{'class':'grid--cell fw-bold'}).text
+
+ print("El usuario que usted busco es: "+content_Users)
+ print("URL: "+LinkUs)
+
+ print("Sus etiquetas son: ")
+ headers=["PUNTUACION  -  ETIQUETAS "]
+ if Id !=None:
+  Existe==True
+ print(tabulate(headers))
+ if Id==None:
+  Existe==False
+ listaEtiquetas=list()
+ listaPuntuaciones=list()
+ for page in range(1,15):
+  LinkTag="https://es.stackoverflow.com/users/"+Id+"?tab=tags&sort=votes&page={:}".format(page)
+  tag=requests.get(LinkTag)
+  soupTag=BeautifulSoup(tag.content,"html.parser")
+  content_UsersTag=soupTag.find_all("td")
+  for vote in content_UsersTag:
+    subtag=vote.find_all("a")
+    sub=vote.find_all('div')
+    votos=sub[0].text.replace("k","000")
+    votosInt=int(votos)
+    etiquet=subtag[0].text
+    listaEtiquetas.append(etiquet)
+    listaPuntuaciones.append(votosInt)
+    print('{:^25}{:^60}'.format(sub[0].text,subtag[0].text))
+    archivo=open("ScrapPS95.txt","a")
+    archivo.write(votos+" : "+etiquet+"\n")
+    archivo=open("ScrapPS95.txt","r").read()
+    
+  diccionario = dict(zip(listaEtiquetas, listaPuntuaciones))
+  wc=WordCloud(background_color="white").generate_from_frequencies(diccionario)
+  plt.imshow(wc,interpolation="bilinear")
+  plt.axis("off")  
+  
+except Exception as e:
+ Existe==False
+ Final=["NO SE ENCONTRARON ETIQUETAS "]
+ print(tabulate(Final)) 
