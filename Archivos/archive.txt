@@ -1,0 +1,10 @@
+"Creo una primera l¡nea en el archivo_b.txt" 
+<<<<<<< HEAD
+"experimento a¤ado una linea al archive.txt en la rama experimento" 
+"a¤ado una segunda linea en archive.txt" 
+=======
+"Creo una segunda linea en el archive.txt" 
+"Inserto una linea en archive.txt"
+>>>>>>> pruebas
+"resuelve el conflicto en la primera linea de archive.txt" 
+"tambien modifico la segunda linea de archive.txt" 

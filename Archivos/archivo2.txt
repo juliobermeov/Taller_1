@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+"a¤ado una primera linea al archivo2 en la rama intento" 
+=======
+"Creo una primera l¡nea en el archivo_b.txt" 
+"Creo una segunda linea en el arhivo2.txt" 
+>>>>>>> pruebas
